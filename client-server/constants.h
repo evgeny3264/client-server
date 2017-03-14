@@ -3,27 +3,27 @@
 
 namespace Constants
 {
-    const DWORD MAX_DATA_SIZE = 255;
+    const unsigned long MAX_DATA_SIZE = 255;
 
     const BYTE MIN_REQUEST_PRIORITY = 0;
     const BYTE MAX_REQUEST_PRIORITY = 255;
 
-    const DWORD MIN_CLIENTS = 1;
-    const DWORD MAX_CLIENTS = 10;
-    const DWORD DEFAULT_CLIENTS = 1;
+    const unsigned long MIN_CLIENTS = 1;
+    const unsigned long MAX_CLIENTS = 10;
+    const unsigned long DEFAULT_CLIENTS = 1;
 
     // In milliseconds.
-    const DWORD MIN_REQUEST = 6000;
+    const unsigned long MIN_REQUEST = 6000;
     // In milliseconds.
-    const DWORD MAX_REQUEST = 15000;
+    const unsigned long MAX_REQUEST = 10000;
 
     // In milliseconds.
-    const DWORD MIN_SERVER_RESPONSE = 1000;
+    const unsigned long MIN_SERVER_RESPONSE = 1000;
     // In milliseconds.
-    const DWORD MAX_SERVER_RESPONSE = 1500;
+    const unsigned long MAX_SERVER_RESPONSE = 1500;
 
     const std::wstring DEFAULT_LOG_FILE_NAME = L"file.log";
 
     // In milliseconds.
-    const DWORD FLASHING_TIME = 300;
+    const unsigned long FLASHING_TIME = 300;
 }

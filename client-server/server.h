@@ -22,18 +22,20 @@ public:
 
     // Start server in new thread.
     void Start();
+	// Stop server thread 
+	void Stop();
     Server& operator=(const Server &) = delete;
 private:
     std::thread m_thread;
     std::wstring m_logFileName;
     std::wofstream m_logFile;
-
+	std::atomic<bool> m_exit;
     PriorityQueue &m_priorityQueue;
 
     // Random number engine.
     std::default_random_engine m_engine;
     // Random int generator for delay.
-    std::uniform_int_distribution<DWORD> m_randomInt;
+    std::uniform_int_distribution<unsigned long> m_randomInt;
 
     // Run ProcessRequest infinity times.
     void Run();

@@ -11,17 +11,17 @@
 class Controller
 {
 public:
-	explicit Controller(DWORD dwClients);
+	explicit Controller(unsigned long dwClients);
 
     // Start server and clients.
     void Start();
-
-    DWORD GetClients()
+	void StopAllThread();
+    unsigned long GetClients()
     {
         return m_dw—lients;
     }
 
-    void SetClient(DWORD dwClients)
+    void SetClient(unsigned long dwClients)
     {
         m_dw—lients = dwClients;
     }
@@ -29,12 +29,12 @@ public:
 	Controller& operator=(const Controller &) = delete;
 private:
     void Run();
-
+	void Stop();
     std::thread m_thread;
 
-    DWORD m_dw—lients;
+    unsigned long m_dw—lients;
     View m_view;
     PriorityQueue m_priorityQueue;
     Server m_server;
-    std::vector<std::auto_ptr<Client>> m_clients;
+    std::vector<std::shared_ptr<Client>> m_clients;
 };

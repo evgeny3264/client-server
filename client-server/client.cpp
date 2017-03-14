@@ -2,7 +2,7 @@
 #include "client.h"
 #include "priorityqueue.h"
 
-std::atomic<DWORD> Client::m_id;
+std::atomic<unsigned long> Client::m_id;
 
 void Client::Start()
 {
@@ -10,13 +10,21 @@ void Client::Start()
     m_thread.detach();
 }
 
+void Client::Stop()
+{
+	m_exit = true;
+}
 void Client::Run()
 {
     while (true)
     {
         SendRequest();
-        DWORD dwMilliseconds = m_randomDelay(m_engine);
+		unsigned long dwMilliseconds = m_randomDelay(m_engine);
         std::this_thread::sleep_for(std::chrono::milliseconds(dwMilliseconds));
+		if (m_exit)
+		{			
+			break;
+		}
     }
 }
 
@@ -26,7 +34,6 @@ void Client::SendRequest()
     tdRequest.cPriority = GetPriority();
     tdRequest.dwClientId = m_dwClientId;
     tdRequest.dwTicks = GetTickCount();
-    std::memcpy(tdRequest.data, GetData(), Constants::MAX_DATA_SIZE);
-
-    m_priorityQueue.Add(tdRequest);
+	GetData(tdRequest.data);
+	m_priorityQueue.Add(tdRequest);
 }

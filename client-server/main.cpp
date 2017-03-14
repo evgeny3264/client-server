@@ -5,7 +5,7 @@
 #include "controller.h"
 #include "view.h"
 
-DWORD ValidInput(DWORD min, DWORD max);
+unsigned long ValidInput(unsigned long min, unsigned long max);
 
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -16,11 +16,15 @@ int _tmain(int argc, _TCHAR* argv[])
     try
     {
         cout << "Enter number of clients: ";
-        DWORD clients = ValidInput(Constants::MIN_CLIENTS, Constants::MAX_CLIENTS);
-        cout << "Start modelling. Enter any char to quit. For results see log file.\n";
+        unsigned long clients = ValidInput(Constants::MIN_CLIENTS, Constants::MAX_CLIENTS);
+        cout << "Start modelling. Press enter to quit. For results see log file."<<endl;
 		Controller controller(clients);
 		controller.Start();
-        std::cin.get();
+        std::cin.get();		
+		controller.StopAllThread();
+		system("cls");
+		cout << "All threads completed. Press enter to quit." << endl;
+		std::cin.get();
     }
     catch (const std::bad_exception &e)
     {
@@ -35,12 +39,12 @@ int _tmain(int argc, _TCHAR* argv[])
     return 0;
 }
 
-DWORD ValidInput(DWORD min, DWORD max)
+unsigned long ValidInput(unsigned long min, unsigned long max)
 {
     using std::cin;
     using std::cout;
 
-    DWORD value{};
+    unsigned long value{};
     cin >> value;
     while (cin.fail() || value < min || value > max)
     {

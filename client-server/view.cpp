@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "view.h"
 
-View::View(DWORD clients)
+View::View(unsigned long clients)
     : m_clients(clients)
 {
     m_console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -28,7 +28,7 @@ View::View(DWORD clients)
     Write(L"0", GetSizeFlushCoord());
 }
 
-void View::ShowRequest(const TDATA &request, DWORD size)
+void View::ShowRequest(const TDATA &request, unsigned long size)
 {
     COORD coord{ 17, static_cast<SHORT>(GetTopY() + 2 + 3 * (request.dwClientId - 1)) };
     Write(L"REQ " + std::to_wstring(request.cPriority), coord);
@@ -37,13 +37,13 @@ void View::ShowRequest(const TDATA &request, DWORD size)
     Write(L"───────", coord);
 }
 
-void View::ShowSize(DWORD size)
+void View::ShowSize(unsigned long size)
 {
     Write(L"   ", GetSizeFlushCoord());
     Write(std::to_wstring(size), GetSizeFlushCoord());
 }
 
-void View::ShowLog(const TDATA &request, DWORD size)
+void View::ShowLog(const TDATA &request, unsigned long size)
 {
     std::wstring log(L"LOG");
     Write(log + L"(" + std::to_wstring(request.dwClientId) + L", "
@@ -110,7 +110,7 @@ void View::PaintQueue()
 
 }
 
-void View::PaintClient(DWORD id, const COORD &coord)
+void View::PaintClient(unsigned long id, const COORD &coord)
 {
     std::vector<std::wstring> client = {
         L"┌──────────┐",
@@ -123,7 +123,7 @@ void View::PaintClient(DWORD id, const COORD &coord)
 
 void View::PaintClients()
 {
-    for (DWORD i = 0; i < m_clients; ++i)
+    for (unsigned long i = 0; i < m_clients; ++i)
         PaintClient(i + 1, GetClientCoord(i));
 }
 
@@ -131,7 +131,7 @@ void View::PaintConnects()
 {
     std::wstring connection(L"──────────────→");
     Write(connection, COORD{ GetLogFlushCoord().X - 3, GetLogFlushCoord().Y });
-    for (DWORD i = 0; i < m_clients; ++i)
+    for (unsigned long i = 0; i < m_clients; ++i)
         Write(connection, GetConnectsCoord(i));
 }
 
@@ -170,12 +170,12 @@ COORD View::GetSizeFlushCoord() const
 	return COORD{ GetTopX() + 35, GetTopY() + 1 };
 }
 
-COORD View::GetClientCoord(DWORD id) const
+COORD View::GetClientCoord(unsigned long id) const
 {
 	return COORD{ GetTopX() + 1, GetTopY() + 3 * static_cast<SHORT>(id)+1 };
 }
 
-COORD View::GetConnectsCoord(DWORD id) const
+COORD View::GetConnectsCoord(unsigned long id) const
 {
 	return COORD{ GetTopX() + 13, GetClientCoord(id).Y + 1 };
 }

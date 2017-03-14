@@ -4,11 +4,12 @@
 #include "priorityqueue.h"
 
 Server::Server(PriorityQueue &priorityQueue, const std::wstring &logFileName)
-    : m_thread(),
+	: m_thread(),
+	m_exit(false),
     m_logFileName(logFileName),
     m_logFile(m_logFileName, std::ios::app),
     m_priorityQueue(priorityQueue),
-    m_engine(static_cast<DWORD>(std::time(nullptr))),
+    m_engine(static_cast<unsigned long>(std::time(nullptr))),
     m_randomInt(Constants::MIN_SERVER_RESPONSE, Constants::MAX_SERVER_RESPONSE)
 {
     if (!m_logFile.is_open())
@@ -22,13 +23,20 @@ void Server::Start()
     m_thread = std::thread(&Server::Run, this);
     m_thread.detach();
 }
-
+void Server::Stop()
+{
+	m_exit = true;
+}
 void Server::Run()
 {
     while (true)
-    {
+    {	
         ProcessRequest();
         std::this_thread::sleep_for(std::chrono::milliseconds(m_randomInt(m_engine)));
+		if (m_exit)
+		{			
+			break;
+		}
     }
 }
 

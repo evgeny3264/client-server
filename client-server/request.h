@@ -11,9 +11,9 @@ typedef struct tagTDATA
     // Priority of request 0-255 (0 - highest priority)
     BYTE cPriority;
     // Request's creation time in system clock ticks
-    DWORD dwTicks;
+    unsigned long dwTicks;
     // Unique client ID
-    DWORD dwClientId;
+    unsigned long dwClientId;
     // Abstract data
     char data[Constants::MAX_DATA_SIZE];
 } TDATA, *PTDATA;

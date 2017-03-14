@@ -24,7 +24,7 @@ public:
     void Add(const TDATA &request)
     {
         Lock l(m_mutex);
-        m_queue.push(request);
+        m_queue.push(request);	
         m_view.ShowRequest(request, m_queue.size());
     }
 
