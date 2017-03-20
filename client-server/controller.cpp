@@ -35,8 +35,13 @@ void Controller::StopAllThread()
 
 void Controller::Stop()
 {	
-	for (size_t i = 0; i < m_dwÑlients; ++i)
+	for (size_t i = 0; i < m_dwÑlients; ++i) {
 		m_clients[i]->Stop();
+	}
+	for (size_t i = 0; i < m_dwÑlients; ++i) {
+		m_clients[i]->Join();
+	}
 	m_server.Stop();
-	std::this_thread::sleep_for(std::chrono::milliseconds(Constants::MAX_REQUEST+100));
+	m_server.Join();
+	//std::this_thread::sleep_for(std::chrono::milliseconds(Constants::MAX_REQUEST+100));
 }

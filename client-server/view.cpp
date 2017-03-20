@@ -57,7 +57,7 @@ void View::Paint(const std::vector<std::wstring> &figure, const COORD &coord)
 {
     for (size_t i = 0; i < figure.size(); ++i)
     {
-        Write(figure[i], COORD{ coord.X, coord.Y + i });
+        Write(figure[i], COORD{ coord.X, coord.Y + (short)i });
     }
 }
 

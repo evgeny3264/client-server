@@ -16,7 +16,7 @@ public:
         m_mutex.unlock();
     }
 
-    Lock() = delete;
+    //Lock() = delete;
 private:
     std::mutex &m_mutex;
 };

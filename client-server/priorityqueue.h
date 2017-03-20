@@ -32,14 +32,18 @@ public:
     // Return false if queue empty and true otherwise.
     bool Get(TDATA &request)
     {
-        Lock l(m_mutex);
-        if (m_queue.empty())
-        {
-            return false;
-        }
-        request = m_queue.top();
-        m_queue.pop();
-        m_view.ShowLog(request, m_queue.size());
+		size_t size = 0;
+		{
+			Lock l(m_mutex);
+			if (m_queue.empty())
+			{
+				return false;
+			}
+			request = m_queue.top();
+			m_queue.pop();
+			size = m_queue.size();
+		}
+        m_view.ShowLog(request, size);
         return true;
     }
 

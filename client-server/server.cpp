@@ -14,29 +14,29 @@ Server::Server(PriorityQueue &priorityQueue, const std::wstring &logFileName)
 {
     if (!m_logFile.is_open())
     {
-        throw std::bad_exception("Couldn't create or write log file");
+		throw std::bad_exception();//("Couldn't create or write log file");
     }
 }
 
 void Server::Start()
 {
     m_thread = std::thread(&Server::Run, this);
-    m_thread.detach();
+    //m_thread.detach();
 }
 void Server::Stop()
 {
 	m_exit = true;
 }
+void Server::Join()
+{
+	m_thread.join();
+}
 void Server::Run()
 {
-    while (true)
+    while (!m_exit)
     {	
         ProcessRequest();
         std::this_thread::sleep_for(std::chrono::milliseconds(m_randomInt(m_engine)));
-		if (m_exit)
-		{			
-			break;
-		}
     }
 }
 

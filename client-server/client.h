@@ -25,10 +25,12 @@ public:
     void Start();
 	// Stop client thread
 	void Stop();
+	void Join();
     unsigned long GetId()
     {
         return m_dwClientId;
     }
+
      
 private:
 	unsigned long m_dwClientId;
@@ -55,12 +57,4 @@ private:
     {
         return static_cast<BYTE>(m_randomPriority(m_engine));
     }   
-    // Generate request data.
-   void GetData(char * data) const
-    {
-		for (int i = 0; i < 10; ++i)
-		{
-			*data++ = '1'; // random data
-		}
-    }
 };

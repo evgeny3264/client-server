@@ -15,5 +15,5 @@ typedef struct tagTDATA
     // Unique client ID
     unsigned long dwClientId;
     // Abstract data
-    char data[Constants::MAX_DATA_SIZE];
+    std::vector<char> data;
 } TDATA, *PTDATA;

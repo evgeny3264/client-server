@@ -25,6 +25,8 @@ public:
 	// Stop server thread 
 	void Stop();
     Server& operator=(const Server &) = delete;
+	void Join();
+
 private:
     std::thread m_thread;
     std::wstring m_logFileName;
