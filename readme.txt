@@ -1,1 +1,1 @@
-﻿Тестовое задание: моделирование клиент-сервер.
+Test task: client-server simulation.
